@@ -14,12 +14,14 @@ function getBy(filter) {
 
 function getById(id){
     return db('users as u')
+    .select('id')
     .where('id', id)
     .first()
 }
 
 async function insert(user) {
     const [id] = await db('users')
+    .select('id', 'username', 'password')
     .insert(user, 'id')
     return getById(id)
 }

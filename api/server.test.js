@@ -48,7 +48,7 @@ describe('users endpoints', () => {
     it('can find a user by the id ', async () => {
       await db('users').insert({username: "katie", password: "1234"})
       const katie= await User.getById(1)
-      expect(katie).toMatchObject({ id: 1, username: "katie"})
+      expect(katie).toMatchObject({ id: 1})
     })
   })
 })
