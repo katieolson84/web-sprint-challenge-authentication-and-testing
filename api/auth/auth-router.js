@@ -2,7 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../secrets');
-const { checkUsernameFree, checkUserNameExists } = require('../middleware/restricted');
+const { checkUsernameFree, checkUserNameExists, checkPasswordExists } = require('../middleware/restricted');
 const User = require('../users/users-model');
 
 router.post('/register', checkUsernameFree, async (req, res, next) => {
@@ -52,7 +52,7 @@ router.post('/register', checkUsernameFree, async (req, res, next) => {
   */
 
 
-router.post('/login', checkUserNameExists, async (req, res, next) => {
+router.post('/login', checkUserNameExists, checkPasswordExists, async (req, res, next) => {
   const { username, password } = req.body;
 
   User.getBy(username)
@@ -65,9 +65,12 @@ router.post('/login', checkUserNameExists, async (req, res, next) => {
           message: `welcome, ${user.username}`,
           token: token
         })
-      }else{
+      }else if(!username || !password){
         res.status(401).json({message: 'username and password required'})
+      }else{
+        res.status(401).json({message: 'invalid credentials'})
       }
+  
     })
     .catch(next);
 

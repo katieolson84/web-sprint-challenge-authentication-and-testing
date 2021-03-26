@@ -43,9 +43,19 @@ const checkUserNameExists = (req, res, next) => {
   const { username } = req.body;
   const checkUser = User.getBy({ username }).first();
   if(checkUser.username === username) {
-    res.status(401).json({message: 'invalid credentials'});
+    res.status(401).json({message: 'username and password required'});
   }else{
     next();
+  }
+}
+
+const checkPasswordExists = (req, res, next) => {
+  const {password} = req.body;
+  const checkPassword = User.getBy({ password }).first();
+  if(checkPassword.password === password) {
+    res.status(401).json({message: 'username and password required'})
+  }else{
+    next()
   }
 }
 
@@ -53,6 +63,7 @@ module.exports = {
   restricted, 
   checkUsernameFree,
   checkUserNameExists,
+  checkPasswordExists,
 }
   /*
     IMPLEMENT

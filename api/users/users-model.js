@@ -8,8 +8,8 @@ function get() {
 
 function getBy(filter) {
     return db('users as u')
-    .select('u.id', 'u.username', 'u.password')
-    .where('u.username',filter)
+    .select('id', 'username', 'password')
+    .where('username',filter)
 }
 
 function getById(id){
@@ -20,7 +20,7 @@ function getById(id){
 
 async function insert(user) {
     const [id] = await db('users')
-    .insert(user)
+    .insert(user, 'id')
     return getById(id)
 }
 
