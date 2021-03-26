@@ -18,6 +18,14 @@ it('process.env.NODE_ENV must be "testing"', () => {
   expect(process.env.NODE_ENV).toBe('testing')
 })
 
-// describe('users endpoints', () => {
-//   describe()
-// })
+describe('users endpoints', () => {
+  describe('[POST] /api/auth/register',() => {
+    it('creates a new user in the db', async ()=> {
+      await request(server).post('/api/auth/register')
+      .send({username: 'katie', password: '1234abcd'})
+      const katie = await db('users')
+      .where('username', 'katie').first()
+      expect(katie).toMatchObject({username: 'katie'})
+    }), 500
+  })
+})
