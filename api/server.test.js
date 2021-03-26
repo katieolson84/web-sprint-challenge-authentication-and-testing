@@ -2,6 +2,7 @@
 const server = require('./server');
 const request = require('supertest');
 const db = require('../data/dbConfig');
+const bcrypt = require('bcryptjs');
 
 beforeAll(async () => {
   await db.migrate.rollback()
@@ -27,5 +28,13 @@ describe('users endpoints', () => {
       .where('username', 'katie').first()
       expect(katie).toMatchObject({username: 'katie'})
     }), 500
+
+    it('new user password is bcrypted', async () => {
+      await request(server).post('/api/auth/register')
+      .send({username: 'katie', password: '1234abcd'})
+      const katie = await db('users')
+      .where('username', 'katie').first()
+      expect(bcrypt.compareSync('1234abcd', katie.password)).toBeTruthy()
+    })
   })
 })
