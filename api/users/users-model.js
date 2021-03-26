@@ -8,12 +8,12 @@ function get() {
 
 function getBy(filter) {
     return db('users as u')
-    .where('u.username', filter)
+    .where('username', filter)
 }
 
 function getById(id){
     return db('users as u')
-    .where('u.id', id)
+    .where('id', id)
     .first()
 }
 

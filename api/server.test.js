@@ -40,10 +40,10 @@ describe('users endpoints', () => {
   })
 
   describe('[POST] /api/auth/login', () => {
-    it('responds with the correct message on invalid credentials', async () => {
+    it('responds with the correct message when username or password are missing', async () => {
       const res = await request(server).post('/api/auth/login')
       .send({ username: 'katie', password: '1234abcd' })
-      expect(res.body.message).toMatch('invalid credentials')
+      expect(res.body.message).toMatch('username and password required')
     }, 500)
     it('can find a user by the id ', async () => {
       await db('users').insert({username: "katie", password: "1234"})

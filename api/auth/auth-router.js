@@ -66,7 +66,7 @@ router.post('/login', checkUserNameExists, async (req, res, next) => {
           token
         })
       }else{
-        res.status(401).json({message: 'invalid credentials'})
+        res.status(401).json({message: 'username and password required'})
       }
     })
     .catch(next);
