@@ -37,4 +37,12 @@ describe('users endpoints', () => {
       expect(bcrypt.compareSync('1234abcd', katie.password)).toBeTruthy()
     })
   })
+
+  describe('[POST] /api/auth/login', () => {
+    it('responds with the correct message on invalid credentials', async () => {
+      const res = await request(server).post('/api/auth/login')
+      .send({ username: 'katie', password: '1234abcd' })
+      expect(res.body.message).toMatch('invalid credentials')
+    }, 500)
+  })
 })
