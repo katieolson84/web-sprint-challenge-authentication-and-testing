@@ -7,7 +7,7 @@ function get() {
 }
 
 function getBy(filter) {
-    return db('users as u')
+    return db('users')
     .where('username', filter)
 }
 
