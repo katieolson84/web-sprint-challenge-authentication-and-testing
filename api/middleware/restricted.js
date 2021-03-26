@@ -20,17 +20,24 @@ const restricted = (req, res, next) => {
 };
 
 const checkUsernameFree = async (req,res,next) => {
-  try{
-    const rows = await User.getBy({username: req.body.username})
-    if(!rows.length) {
-      next()
-    }else{
-      res.status(422).json({message: 'username taken'})
-    }
-  }catch(e){
-    res.status(500).json(`Server error: ${e}`)
+  const rows = await User.getBy({username: req.body.username})
+  if(!rows.length) {
+    next()
+  }else{
+    res.status(422).json({message: 'username taken'})
   }
 }
+//   try{
+//     const rows = await User.getBy({username: req.body.username})
+//     if(!rows.length) {
+//       next()
+//     }else{
+//       res.status(422).json({message: 'username taken'})
+//     }
+//   }catch(e){
+//     res.status(500).json(`Server error: ${e}`)
+//   }
+// }
 
 const checkUserNameExists = (req, res, next) => {
   const { username } = req.body;
@@ -58,4 +65,3 @@ module.exports = {
     3- On invalid or expired token in the Authorization header,
       the response body should include a string exactly as follows: "token invalid".
   */
-

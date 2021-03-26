@@ -18,10 +18,10 @@ router.post('/register', checkUsernameFree, async (req, res, next) => {
         res.status(201).json({user})
       })
       .catch(err => {
-        res.status(500).json({message:err.message, stack: err.stack})
+        res.status(422).json({message: 'username taken'})
       })
     }else {
-      res.status(400).json({message: 'username and passoword required'})
+      res.status(400).json({message: 'username and password required'})
     }
     })
   // res.end('implement register, please!');
