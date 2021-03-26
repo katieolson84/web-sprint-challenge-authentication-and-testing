@@ -1,4 +1,9 @@
 const router = require('express').Router();
-const Users = require('./users-model');
-const { restricted } = require('../middleware');
+const users = require('./users-model');
 
+
+router.get('/', (req,res,) => {
+    res.status(200).json(users);
+})
+
+module.exports= router;

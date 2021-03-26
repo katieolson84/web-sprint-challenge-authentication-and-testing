@@ -14,7 +14,6 @@ function getBy(filter) {
 
 function getById(id){
     return db('users as u')
-    .select('id')
     .where('id', id)
     .first()
 }
@@ -26,7 +25,12 @@ async function insert(user) {
     return getById(id)
 }
 
+function remove(id){
+    return db('users').where({id}).del();
+}
+
 module.exports = {
+    remove,
     insert,
     getById, 
     getBy,
