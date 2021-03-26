@@ -63,7 +63,7 @@ router.post('/login', checkUserNameExists, async (req, res, next) => {
 
         res.status(200).json({
           message: `welcome, ${user.username}`,
-          token
+          token: token
         })
       }else{
         res.status(401).json({message: 'username and password required'})

@@ -7,8 +7,9 @@ function get() {
 }
 
 function getBy(filter) {
-    return db('users')
-    .where('username', filter)
+    return db('users as u')
+    .select('u.id', 'u.username', 'u.password')
+    .where('u.username',filter)
 }
 
 function getById(id){

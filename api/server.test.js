@@ -42,7 +42,7 @@ describe('users endpoints', () => {
   describe('[POST] /api/auth/login', () => {
     it('responds with the correct message when username or password are missing', async () => {
       const res = await request(server).post('/api/auth/login')
-      .send({ username: 'katie', password: '1234abcd' })
+      .send({ username: 'katie'})
       expect(res.body.message).toMatch('username and password required')
     }, 500)
     it('can find a user by the id ', async () => {
