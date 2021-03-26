@@ -17,3 +17,7 @@ afterAll(async () => {
 it('process.env.NODE_ENV must be "testing"', () => {
   expect(process.env.NODE_ENV).toBe('testing')
 })
+
+// describe('users endpoints', () => {
+//   describe()
+// })
